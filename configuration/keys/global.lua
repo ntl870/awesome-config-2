@@ -54,6 +54,8 @@ local global_keys = awful.util.table.join(
 		end,
 		{description = 'increase the number of master clients', group = 'layout'}
 	),
+	awful.key({modkey}, '/', awful.client.movetoscreen,
+          {description = 'move window to next screen', group = 'client'}),
 	awful.key({altkey}, 'Tab', function()
 		-- awful.client.focus.history.previous()
 		awful.client.focus.byidx(1)
@@ -368,7 +370,7 @@ awful.key({altkey, 'Shift'}, 'Up', function() awful.client.incwfact(-0.05) end,
 		{description = 'decrease blur effect by 10%', group = 'Utility'}
 	),
 	awful.key(
-		{modkey},
+		{modkey,'Shift'},
 		't',
 		function() 
 			awesome.emit_signal('widget::blue_light:toggle')
