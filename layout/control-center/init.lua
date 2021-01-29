@@ -19,6 +19,8 @@ local format_item = function(widget)
 			widget = wibox.container.margin
 		},
 		forced_height = dpi(88),
+		border_width	= 	dpi(1),
+		border_color 	= 	beautiful.groups_title_bg,
 		bg = beautiful.groups_bg,
 		shape = function(cr, width, height)
 			gears.shape.rounded_rect(cr, width, height, beautiful.groups_radius)
@@ -40,6 +42,8 @@ local format_item_no_fix_height = function(widget)
 			margins = dpi(10),
 			widget = wibox.container.margin
 		},
+		border_width	= 	dpi(1),
+		border_color 	= 	beautiful.groups_title_bg,
 		bg = beautiful.groups_bg,
 		shape = function(cr, width, height)
 			gears.shape.rounded_rect(cr, width, height, beautiful.groups_radius)
@@ -56,26 +60,26 @@ local vertical_separator =  wibox.widget {
 	widget = wibox.widget.separator
 }
 
-local control_center_row_one = wibox.widget {
+local control_center_row_last = wibox.widget {
 	layout = wibox.layout.align.horizontal,
 	forced_height = dpi(48),
-	nil,
 	format_item(
-		require('widget.user-profile')()
+		{
+			layout = wibox.layout.fixed.horizontal,
+			spacing = dpi(10),
+			require('widget.end-session')(),
+			vertical_separator,
+			require('widget.control-center-switch')()
+		}
 	),
 	{
 		format_item(
-			{
-				layout = wibox.layout.fixed.horizontal,
-				spacing = dpi(10),
-				require('widget.control-center-switch')(),
-				vertical_separator,
-				require('widget.end-session')()
-			}
+			require('widget.user-profile')()
 		),
 		left = dpi(10),
 		widget = wibox.container.margin
-	}
+	},
+	nil
 }
 
 local main_control_row_two = wibox.widget {
@@ -179,7 +183,6 @@ local control_center = function(s)
 				{
 					layout = wibox.layout.fixed.vertical,
 					spacing = dpi(10),
-					control_center_row_one,
 					{
 						layout = wibox.layout.stack,
 						{
@@ -198,12 +201,15 @@ local control_center = function(s)
 							spacing = dpi(10),
 							monitor_control_row_progressbars
 						}
-					}
+					},
+					control_center_row_last
 				},
 				margins = dpi(16),
 				widget = wibox.container.margin
 			},
 			id = 'control_center',
+			border_width	= 	dpi(1),
+			border_color 	= 	beautiful.groups_title_bg,
 			bg = beautiful.background,
 			shape =function(cr, w, h)
 				gears.shape.rounded_rect(cr, w, h, beautiful.groups_radius)
@@ -216,22 +222,26 @@ local control_center = function(s)
 		ontop = true,
 		width = dpi(panel_width),
 		maximum_width = dpi(panel_width),
-		maximum_height = dpi(s.geometry.height - 38),
+		maximum_height = dpi(s.geometry.height - 58),
 		bg = beautiful.transparent,
 		fg = beautiful.fg_normal,
 		shape = gears.shape.rectangle
 	}
 
-	awful.placement.top_right(
-		panel,
-		{
-			honor_workarea = true,
-			parent = s,
-			margins = {
-				top = dpi(33),
-				right = dpi(5)
-			}
-		}
+	panel:connect_signal(
+		'property::height',
+		function()
+			awful.placement.bottom_left(
+				panel,
+				{
+					honor_workarea = true,
+					margins = {
+						bottom = dpi(5),
+						left = dpi(5)
+					}
+				}
+			)
+		end
 	)
 
 	panel.opened = false

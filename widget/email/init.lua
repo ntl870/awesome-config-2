@@ -151,6 +151,8 @@ local email_report = wibox.widget{
 		widget = wibox.container.margin
 	},
 	forced_height = dpi(110),
+	border_width	= 	dpi(1),
+	border_color 	= 	beautiful.groups_title_bg,
 	bg = beautiful.groups_bg,
 	shape = function(cr, width, height)
 		gears.shape.partially_rounded_rect(cr, width, height, true, true, true, true, beautiful.groups_radius)

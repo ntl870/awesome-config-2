@@ -2,11 +2,11 @@ return {
 	widget = {
 		email  = {
 			-- Email address
-			address = 'ntlong870@gmail.com',
+			address = '',
 			-- App password
-			app_password = 'okita123',
+			app_password = '',
 			-- Imap server
-			imap_server = 'gmail.com',
+			imap_server = 'imap.gmail.com',
 			-- Port
 			port = '993'
 		},

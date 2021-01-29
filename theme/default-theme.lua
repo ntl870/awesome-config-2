@@ -6,7 +6,7 @@ local dpi = beautiful.xresources.apply_dpi
 local gtk_variable = beautiful.gtk.get_theme_variables
 
 local theme_dir = filesystem.get_configuration_dir() .. '/theme'
-local titlebar_theme = 'stoplight'
+local titlebar_theme = 'lines'
 local titlebar_icon_path = theme_dir .. '/icons/titlebar/' .. titlebar_theme .. '/'
 local tip = titlebar_icon_path
 
@@ -118,7 +118,7 @@ local awesome_overrides = function(theme)
 	-- UI Groups
 	theme.groups_title_bg = '#ffffff' .. '15'
 	theme.groups_bg = '#ffffff' .. '10'
-	theme.groups_radius = dpi(16)
+	theme.groups_radius = dpi(9)
 
 	-- UI events
 	theme.leave_event = transparent
@@ -133,12 +133,13 @@ local awesome_overrides = function(theme)
 	theme.border_normal = gtk_variable().base_color
 	theme.border_marked = '#CC9393'
 	theme.border_width = dpi(0)
-	theme.border_radius = dpi(12)
+	theme.border_radius = dpi(9)
 
 	-- Decorations
 	theme.useless_gap = dpi(4)
+	theme.client_shape_rectangle = gears.shape.rectangle
 	theme.client_shape_rounded = function(cr, width, height)
-		gears.shape.rounded_rect(cr, width, height, dpi(12))
+		gears.shape.rounded_rect(cr, width, height, dpi(9))
 	end
 
 	-- Menu
@@ -191,7 +192,7 @@ local awesome_overrides = function(theme)
 	theme.tasklist_fg_normal = '#AAAAAA'
 
 	-- Notification
-	theme.notification_position = 'top_left'
+	theme.notification_position = 'top_right'
 	theme.notification_bg = theme.transparent
 	theme.notification_margin = dpi(5)
 	theme.notification_border_width = dpi(0)

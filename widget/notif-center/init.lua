@@ -34,6 +34,8 @@ local notif_center = function(s)
 			margins = dpi(10),
 			widget = wibox.container.margin
 		},
+		border_width	= 	dpi(1),
+		border_color 	= 	beautiful.groups_title_bg,
 		bg = beautiful.groups_bg,
 		shape = function(cr, w, h)
 			gears.shape.rounded_rect(cr, w, h, beautiful.groups_radius)

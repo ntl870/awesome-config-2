@@ -33,6 +33,8 @@ local info_center = function(s)
 				widget = wibox.container.margin
 			},
 			id = 'info_center',
+			border_width	= 	dpi(1),
+			border_color 	= 	beautiful.groups_title_bg,
 			bg = beautiful.background,
 			shape = function(cr, w, h)
 				gears.shape.rounded_rect(cr, w, h, beautiful.groups_radius)
@@ -45,22 +47,26 @@ local info_center = function(s)
 		ontop = true,
 		width = dpi(panel_width),
 		maximum_width = dpi(panel_width),
-		maximum_height = dpi(s.geometry.height - 38),
+		maximum_height = dpi(s.geometry.height - 58),
 		bg = beautiful.transparent,
 		fg = beautiful.fg_normal,
 		shape = gears.shape.rectangle
 	}
 
-	awful.placement.top_right(
-		panel,
-		{
-			honor_workarea = true,
-			parent = s,
-			margins = {
-				top = dpi(33),
-				right = dpi(5)
-			}
-		}
+	panel:connect_signal(
+		'property::height',
+		function()
+			awful.placement.bottom_right(
+				panel,
+				{
+					honor_workarea = true,
+					margins = {
+						bottom = dpi(5),
+						right = dpi(5)
+					}
+				}
+			)
+		end
 	)
 
 	panel.opened = false

@@ -15,7 +15,7 @@ naughty.config.defaults.timeout = 5
 naughty.config.defaults.title = 'System Notification'
 naughty.config.defaults.margin = dpi(16)
 naughty.config.defaults.border_width = 0
-naughty.config.defaults.position = 'top_left'
+naughty.config.defaults.position = 'top_right'
 naughty.config.defaults.shape = function(cr, w, h)
 	gears.shape.rounded_rect(cr, w, h, dpi(6))
 end
@@ -49,7 +49,7 @@ ruled.notification.connect_signal(
 				bg 					= '#ff0000', 
 				fg 					= '#ffffff',
 				margin 				= dpi(16),
-				position 			= 'top_left',
+				position 			= 'top_right',
 				implicit_timeout	= 0
 			}
 		}
@@ -62,7 +62,7 @@ ruled.notification.connect_signal(
 				bg      			= beautiful.transparent, 
 				fg 					= beautiful.fg_normal,
 				margin 				= dpi(16),
-				position 			= 'top_left',
+				position 			= 'top_right',
 				implicit_timeout 	= 5
 			}
 		}
@@ -75,7 +75,7 @@ ruled.notification.connect_signal(
 				bg     				= beautiful.transparent,
 				fg 					= beautiful.fg_normal,
 				margin 				= dpi(16),
-				position 			= 'top_left',
+				position 			= 'top_right',
 				implicit_timeout	= 5
 			}
 		}
@@ -232,12 +232,11 @@ naughty.connect_signal(
 							widget = naughty.container.background,
 						},
 						strategy = 'min',
-						width    = dpi(250),
+						width    = dpi(160),
 						widget   = wibox.container.constraint,
 					},
 					strategy = 'max',
-					height    = dpi(250),
-					width    = dpi(250),
+					width    = beautiful.notification_max_width or dpi(500),
 					widget   = wibox.container.constraint
 				},
 				bg = beautiful.background,
@@ -245,12 +244,13 @@ naughty.connect_signal(
 				widget = wibox.container.background	
 			}
 		}
-
-		-- Destroy popups if dont_disturb_state mode is on
-		-- Or if the info_center is visible
+	
+		-- Destroy popups if dont_disturb mode is on
+		-- Or if the right_panel is visible
 		local focused = awful.screen.focused()
 		if _G.dont_disturb_state or (focused.info_center and focused.info_center.visible) then
 			naughty.destroy_all_notifications(nil, 1)
 		end
+
 	end
 )
