@@ -217,6 +217,7 @@ awful.key({altkey, 'Shift'}, 'Up', function() awful.client.incwfact(-0.05) end,
 		end,
 		{description = 'decrease brightness by 10%', group = 'hotkeys'}
 	),
+	
 	-- ALSA volume control
 	awful.key(
 		{},
@@ -227,6 +228,14 @@ awful.key({altkey, 'Shift'}, 'Up', function() awful.client.incwfact(-0.05) end,
 			awesome.emit_signal('module::volume_osd:show', true)
 		end,
 		{description = 'increase volume up by 5%', group = 'hotkeys'}
+	),
+	awful.key(
+		{modkey},
+		'F10',
+		function()
+			awful.util.spawn_with_shell('sh ~/.config/awesome/autostart/touchpad.sh',false)
+		end,
+		{description = 'Toggle Touchpad', group = 'hotkeys'}
 	),
 	awful.key(
 		{},

@@ -76,3 +76,4 @@ screen.connect_signal(
 		end
 	end
 )
+awful.util.spawn("nm-applet")
