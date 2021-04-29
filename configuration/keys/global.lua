@@ -347,8 +347,8 @@ awful.key({altkey, 'Shift'}, 'Up', function() awful.client.incwfact(-0.05) end,
 		{description = 'fullscreen screenshot', group = 'Utility'}
 	),
 	awful.key(
-		{modkey, 'Shift'}, 
-		's',
+		{modkey}, 
+		'Print',
 		function ()
 			awful.spawn.easy_async_with_shell(apps.utils.area_screenshot,function() end)
 		end,
@@ -437,7 +437,7 @@ awful.key({altkey, 'Shift'}, 'Up', function() awful.client.incwfact(-0.05) end,
 		{modkey}, 
 		'b',
 		function()
-			awful.util.spawn_with_shell("google-chrome-stable")
+			awful.util.spawn_with_shell("firefox")
 		end,
 		{description = 'open default web browser', group = 'launcher'}
 	),

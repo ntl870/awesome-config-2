@@ -67,9 +67,9 @@ return {
 				-- ['06:22:00'] = 'morning-wallpaper.jpg',
 				-- ['12:00:00'] = 'noon-wallpaper.jpg',
 				-- ['17:58:00'] = 'night-wallpaper.jpg'
-				['00:00:00'] = 'astronaut.jpg',
-				['06:22:00'] = 'astronaut.jpg',
-				['12:00:00'] = 'astronaut.jpg',
+				['00:00:00'] = 'nomansky-night.jpg',
+				['06:22:00'] = 'landscape.jpg',
+				['12:00:00'] = 'sand.jpg',
 				['17:58:00'] = 'astronaut.jpg'
 				-- Example of just using auto-scheduling with keywords
 				--[[
@@ -87,7 +87,7 @@ return {
 
 		lockscreen = {
 			-- Clock format
-			military_clock = true,
+			military_clock = false,
 			-- Default password if there's no PAM integration
 			fallback_password = 'okita123',
 			-- Capture intruder using webcam

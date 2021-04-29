@@ -41,7 +41,7 @@ local awesome_overrides = function(theme)
 	theme.bg_urgent = '#3F3F3F'
 
 	-- System tray
-	theme.bg_systray = theme.background
+	theme.bg_systray = '#00000000'
 	theme.systray_icon_spacing = dpi(16)
 
 	-- Titlebar
