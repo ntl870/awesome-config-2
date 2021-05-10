@@ -76,3 +76,17 @@ screen.connect_signal(
 		end
 	end
 )
+-- Autorun programs
+autorun = true
+autorunApps =
+{
+   "nm-applet",
+   "ibus-daemon",
+}
+if autorun then
+   for app = 1, #autorunApps do
+       awful.util.spawn(autorunApps[app])
+   end
+end
+
+awful.spawn.single_instance("mailspring", awful.rules.rules)

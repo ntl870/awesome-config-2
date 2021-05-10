@@ -54,6 +54,8 @@ local global_keys = awful.util.table.join(
 		end,
 		{description = 'increase the number of master clients', group = 'layout'}
 	),
+	awful.key({modkey}, '/', awful.client.movetoscreen,
+          {description = 'move window to next screen', group = 'client'}),
 	awful.key({altkey}, 'Tab', function()
 		-- awful.client.focus.history.previous()
 		awful.client.focus.byidx(1)
@@ -215,6 +217,7 @@ awful.key({altkey, 'Shift'}, 'Up', function() awful.client.incwfact(-0.05) end,
 		end,
 		{description = 'decrease brightness by 10%', group = 'hotkeys'}
 	),
+	
 	-- ALSA volume control
 	awful.key(
 		{},
@@ -225,6 +228,14 @@ awful.key({altkey, 'Shift'}, 'Up', function() awful.client.incwfact(-0.05) end,
 			awesome.emit_signal('module::volume_osd:show', true)
 		end,
 		{description = 'increase volume up by 5%', group = 'hotkeys'}
+	),
+	awful.key(
+		{modkey},
+		'F10',
+		function()
+			awful.util.spawn_with_shell('sh ~/.config/awesome/autostart/touchpad.sh',false)
+		end,
+		{description = 'Toggle Touchpad', group = 'hotkeys'}
 	),
 	awful.key(
 		{},
@@ -336,8 +347,8 @@ awful.key({altkey, 'Shift'}, 'Up', function() awful.client.incwfact(-0.05) end,
 		{description = 'fullscreen screenshot', group = 'Utility'}
 	),
 	awful.key(
-		{modkey, 'Shift'}, 
-		's',
+		{modkey}, 
+		'Print',
 		function ()
 			awful.spawn.easy_async_with_shell(apps.utils.area_screenshot,function() end)
 		end,
@@ -368,7 +379,7 @@ awful.key({altkey, 'Shift'}, 'Up', function() awful.client.incwfact(-0.05) end,
 		{description = 'decrease blur effect by 10%', group = 'Utility'}
 	),
 	awful.key(
-		{modkey},
+		{modkey,'Shift'},
 		't',
 		function() 
 			awesome.emit_signal('widget::blue_light:toggle')
@@ -426,7 +437,7 @@ awful.key({altkey, 'Shift'}, 'Up', function() awful.client.incwfact(-0.05) end,
 		{modkey}, 
 		'b',
 		function()
-			awful.util.spawn_with_shell("google-chrome-stable")
+			awful.util.spawn_with_shell("firefox")
 		end,
 		{description = 'open default web browser', group = 'launcher'}
 	),

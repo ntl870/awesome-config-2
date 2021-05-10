@@ -13,9 +13,9 @@ return {
 
 		weather = {
 			-- API Key
-			key = '',
+			key = '61dec65e599e81c7da0ba7b73d1a6349',
 			-- City ID
-			city_id = '',
+			city_id = '1583992',
 			-- Units
 			units = 'metric',
 			-- Update in N seconds
@@ -24,7 +24,7 @@ return {
 
 		network = {
 			-- Wired interface
-			wired_interface = 'enp0s0',
+			wired_interface = 'enp2s0',
 			-- Wireless interface
 			wireless_interface = 'wlan0'
 		},
@@ -36,7 +36,7 @@ return {
 
 		screen_recorder = {
 			-- Default record dimension
-			resolution = '1366x768',
+			resolution = '1920x1080',
 			-- X,Y coordinate
 			offset = '0,0',
 			-- Enable audio by default
@@ -63,10 +63,14 @@ return {
 			valid_picture_formats = {'jpg', 'png', 'jpeg'},
 			-- Leave this table empty for full auto scheduling
 			wallpaper_schedule = {
-				['00:00:00'] = 'midnight-wallpaper.jpg',
-				['06:22:00'] = 'morning-wallpaper.jpg',
-				['12:00:00'] = 'noon-wallpaper.jpg',
-				['17:58:00'] = 'night-wallpaper.jpg'
+				-- ['00:00:00'] = 'midnight-wallpaper.jpg',
+				-- ['06:22:00'] = 'morning-wallpaper.jpg',
+				-- ['12:00:00'] = 'noon-wallpaper.jpg',
+				-- ['17:58:00'] = 'night-wallpaper.jpg'
+				['00:00:00'] = 'nomansky-night.jpg',
+				['06:22:00'] = 'landscape.jpg',
+				['12:00:00'] = 'sand.jpg',
+				['17:58:00'] = 'astronaut.jpg'
 				-- Example of just using auto-scheduling with keywords
 				--[[
 					'midnight',
@@ -83,9 +87,9 @@ return {
 
 		lockscreen = {
 			-- Clock format
-			military_clock = true,
+			military_clock = false,
 			-- Default password if there's no PAM integration
-			fallback_password = 'toor',
+			fallback_password = 'okita123',
 			-- Capture intruder using webcam
 			capture_intruder = true,
 			-- Intruder image save location (Will create directory if it doesn't exist)

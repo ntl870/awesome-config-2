@@ -304,6 +304,7 @@ awesome.connect_signal(
 
 					-- Process weather data
 					local location = weather_data.name
+					if(location == "Turan") then location = "Da Nang" end
 					local country = weather_data.sys.country
 					local sunrise = os.date('%H:%M', weather_data.sys.sunrise)
 					local sunset = os.date('%H:%M', weather_data.sys.sunset)
