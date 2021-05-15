@@ -320,20 +320,20 @@ awful.key({altkey, 'Shift'}, 'Up', function() awful.client.incwfact(-0.05) end,
 		end,
 		{description = 'toggle exit screen', group = 'hotkeys'}
 	),
-	awful.key(
-		{modkey},
-		'`',
-		function()
-			awesome.emit_signal('module::quake_terminal:toggle')
-		end,
-		{description = 'dropdown application', group = 'launcher'}
-	),
+	-- awful.key(
+	-- 	{modkey},
+	-- 	'`',
+	-- 	function()
+	-- 		awesome.emit_signal('module::quake_terminal:toggle')
+	-- 	end,
+	-- 	{description = 'dropdown application', group = 'launcher'}
+	-- ),
 	awful.key(
 		{modkey}, 
 		'm',
 		function()
 			if awful.screen.focused().musicpop then
-				awesome.emit_signal('widget::music', 'keyboard')
+				awesome.emit_signal('widget::music', 'key`board')
 			end
 		end,
 		{description = 'toggle music widget', group = 'launcher'}
