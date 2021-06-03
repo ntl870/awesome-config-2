@@ -27,8 +27,6 @@ return wibox.widget {
 			},
 			forced_height = dpi(35),
 			bg = beautiful.groups_title_bg,
-			border_width	= 	dpi(1),
-			border_color 	= 	beautiful.groups_title_bg,
 			shape = function(cr, width, height)
 				gears.shape.partially_rounded_rect(cr, width, height, true, true, false, false, beautiful.groups_radius) 
 			end,
@@ -47,8 +45,6 @@ return wibox.widget {
 					require('widget.blue-light')
 				},
 				bg = beautiful.groups_bg,
-				border_width	= 	dpi(1),
-				border_color 	= 	beautiful.groups_title_bg,
 				shape = function(cr, width, height)
 					gears.shape.partially_rounded_rect(cr, width, height, false, false, true, true, beautiful.groups_radius) 
 				end,
@@ -61,8 +57,6 @@ return wibox.widget {
 					require('widget.blur-toggle')
 				},
 				bg = beautiful.groups_bg,
-				border_width	= 	dpi(1),
-				border_color 	= 	beautiful.groups_title_bg,
 				shape = function(cr, width, height)
 					gears.shape.rounded_rect(cr, width, height, beautiful.groups_radius) 
 				end,

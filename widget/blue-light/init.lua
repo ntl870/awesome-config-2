@@ -1,39 +1,22 @@
 local awful = require('awful')
 local wibox = require('wibox')
 local gears = require('gears')
-local beautiful = require('beautiful')
-local dpi = beautiful.xresources.apply_dpi
-local clickable_container = require('widget.clickable-container')
-local config_dir = gears.filesystem.get_configuration_dir()
-local widget_dir = config_dir .. 'widget/blue-light/'
-local widget_icon_dir = widget_dir .. 'icons/'
+local dpi = require('beautiful').xresources.apply_dpi
+local clickable_container = require('widget.blue-light.clickable-container')
 local icons = require('theme.icons')
-local device_state = false
+local blue_light_state = nil
 
 local action_name = wibox.widget {
 	text = 'Blue Light',
-	font = 'Inter Bold 10',
+	font = 'Inter Regular 11',
 	align = 'left',
 	widget = wibox.widget.textbox
-}
-
-local action_status = wibox.widget {
-	text = 'Off',
-	font = 'Inter Regular 10',
-	align = 'left',
-	widget = wibox.widget.textbox
-}
-
-local action_info = wibox.widget {
-	layout = wibox.layout.fixed.vertical,
-	action_name,
-	action_status
 }
 
 local button_widget = wibox.widget {
 	{
 		id = 'icon',
-		image = widget_icon_dir .. 'blue-light-off.svg',
+		image = icons.toggled_off,
 		widget = wibox.widget.imagebox,
 		resize = true
 	},
@@ -42,29 +25,21 @@ local button_widget = wibox.widget {
 
 local widget_button = wibox.widget {
 	{
-		{
-			button_widget,
-			margins = dpi(15),
-			forced_height = dpi(48),
-			forced_width = dpi(48),
-			widget = wibox.container.margin
-		},
-		widget = clickable_container
+		button_widget,
+		top = dpi(7),
+		bottom = dpi(7),
+		widget = wibox.container.margin
 	},
-	bg = beautiful.groups_bg,
-	shape = gears.shape.circle,
-	widget = wibox.container.background
+	widget = clickable_container
 }
 
-local update_widget = function()
+
+local update_imagebox = function()
+	local button_icon = button_widget.icon
 	if blue_light_state then
-		action_status:set_text('On')
-		widget_button.bg = beautiful.accent
-		button_widget.icon:set_image(widget_icon_dir .. 'blue-light.svg')
+		button_icon:set_image(icons.toggled_on)
 	else
-		action_status:set_text('Off')
-		widget_button.bg = beautiful.groups_bg
-		button_widget.icon:set_image(widget_icon_dir .. 'blue-light-off.svg')
+		button_icon:set_image(icons.toggled_off)
 	end
 end
 
@@ -78,7 +53,7 @@ local kill_state = function()
 			stdout = tonumber(stdout)
 			if stdout then
 				blue_light_state = false
-				update_widget()
+				update_imagebox()
 			end
 		end
 	)
@@ -104,9 +79,10 @@ local toggle_action = function()
 			else
 				blue_light_state = false
 			end
-			update_widget()
+			update_imagebox()
 		end
 	)
+
 end
 
 widget_button:buttons(
@@ -122,31 +98,20 @@ widget_button:buttons(
 	)
 )
 
-action_info:buttons(
-	gears.table.join(
-		awful.button(
-			{},
-			1,
-			nil,
-			function()
-				toggle_action()
-			end
-		)
-	)
-)
-
 local action_widget =  wibox.widget {
-	layout = wibox.layout.fixed.horizontal,	
-	spacing = dpi(10),
-	widget_button,
 	{
-		layout = wibox.layout.align.vertical,
-		expand = 'none',
+		action_name,
 		nil,
-		action_info,
-		nil
-	}
-
+		{
+			widget_button,
+			layout = wibox.layout.fixed.horizontal,
+		},
+		layout = wibox.layout.align.horizontal,
+	},
+	left = dpi(24),
+	right = dpi(24),
+	forced_height = dpi(48),
+	widget = wibox.container.margin
 }
 
 awesome.connect_signal(

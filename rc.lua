@@ -1,6 +1,6 @@
--- ░█░░░▀█▀░█▀█░█▀▀░█▀█░█▀▄
--- ░█░░░░█░░█░█░█▀▀░█▀█░█▀▄
--- ░▀▀▀░▀▀▀░▀░▀░▀▀▀░▀░▀░▀░▀
+-- ░█▀▀░█░░░█▀█░█▀█░█▀█░█░█
+-- ░█▀▀░█░░░█░█░█▀▀░█▀▀░░█░
+-- ░▀░░░▀▀▀░▀▀▀░▀░░░▀░░░░▀░
 -- Banner generated using `toilet -f pagga AwesomeWM"
 
 local gears = require('gears')
@@ -90,4 +90,3 @@ if autorun then
 end
 
 awful.spawn.single_instance("mailspring", awful.rules.rules)
-  

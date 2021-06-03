@@ -28,34 +28,29 @@ local icon = wibox.widget {
 
 local action_level = wibox.widget {
 	{
-		{
-			icon,
-			margins = dpi(5),
-			widget = wibox.container.margin
-		},
+		icon,
 		widget = clickable_container,
 	},
-	bg = beautiful.groups_bg,
-	shape = function(cr, width, height)
-		gears.shape.rounded_rect(cr, width, height, beautiful.groups_radius)
-	end,
+	bg = beautiful.transparent,
+	shape = gears.shape.circle,
 	widget = wibox.container.background
 }
+
 local slider = wibox.widget {
 	nil,
 	{
 		id 					= 'blur_strength_slider',
 		bar_shape           = gears.shape.rounded_rect,
-		bar_height          = dpi(24),
+		bar_height          = dpi(2),
 		bar_color           = '#ffffff20',
 		bar_active_color	= '#f2f2f2EE',
 		handle_color        = '#ffffff',
 		handle_shape        = gears.shape.circle,
-		handle_width        = dpi(24),
+		handle_width        = dpi(15),
 		handle_border_color = '#00000012',
 		handle_border_width = dpi(1),
 		maximum				= 100,
-		widget              = wibox.widget.slider
+		widget              = wibox.widget.slider,
 	},
 	nil,
 	expand = 'none',
@@ -178,27 +173,22 @@ awesome.connect_signal(
 )
 
 local volume_setting = wibox.widget {
-	layout = wibox.layout.fixed.vertical,
-	forced_height = dpi(48),
-	spacing = dpi(5),
-	action_name,
 	{
-		layout = wibox.layout.fixed.horizontal,
-		spacing = dpi(5),
 		{
-			layout = wibox.layout.align.vertical,
-			expand = 'none',
-			nil,
-			{
-				layout = wibox.layout.fixed.horizontal,
-				forced_height = dpi(24),
-				forced_width = dpi(24),
-				action_level
-			},
-			nil
+			action_level,
+			top = dpi(12),
+			bottom = dpi(12),
+			widget = wibox.container.margin
 		},
-		slider
-	}
+		slider,
+		spacing = dpi(24),
+		layout = wibox.layout.fixed.horizontal
+
+	},
+	left = dpi(24),
+	right = dpi(24),
+	forced_height = dpi(48),
+	widget = wibox.container.margin
 }
 
 return volume_setting

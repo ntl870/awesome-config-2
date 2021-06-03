@@ -1,19 +1,23 @@
 local awful = require('awful')
-local bottom_panel = require('layout.bottom-panel')
-local control_center = require('layout.control-center')
-local info_center = require('layout.info-center')
+local left_panel = require('layout.left-panel')
+local top_panel = require('layout.top-panel')
+local right_panel = require('layout.right-panel')
 
 -- Create a wibox panel for each screen and add it
 screen.connect_signal(
 	'request::desktop_decoration',
 	function(s)
-		s.bottom_panel = bottom_panel(s)
-		s.control_center = control_center(s)
-		s.info_center = info_center(s)
-		s.control_center_show_again = false
-		s.info_center_show_again = false
+		if s.index == 1 then
+			s.left_panel = left_panel(s)
+			s.top_panel = top_panel(s, true)
+		else
+			s.top_panel = top_panel(s, false)
+		end
+		s.right_panel = right_panel(s)
+		s.right_panel_show_again = false
 	end
 )
+
 
 -- Hide bars when app go fullscreen
 function update_bars_visibility()
@@ -21,23 +25,17 @@ function update_bars_visibility()
 		if s.selected_tag then
 			local fullscreen = s.selected_tag.fullscreen_mode
 			-- Order matter here for shadow
-			s.bottom_panel.visible = not fullscreen
-			if s.control_center then
-				if fullscreen and s.control_center.visible then
-					s.control_center:toggle()
-					s.control_center_show_again = true
-				elseif not fullscreen and not s.control_center.visible and s.control_center_show_again then
-					s.control_center:toggle()
-					s.control_center_show_again = false
-				end
+			s.top_panel.visible = not fullscreen
+			if s.left_panel then
+				s.left_panel.visible = not fullscreen
 			end
-			if s.info_center then
-				if fullscreen and s.info_center.visible then
-					s.info_center:toggle()
-					s.info_center_show_again = true
-				elseif not fullscreen and not s.info_center.visible and s.info_center_show_again then
-					s.info_center:toggle()
-					s.info_center_show_again = false
+			if s.right_panel then
+				if fullscreen and s.right_panel.visible then
+					s.right_panel:toggle()
+					s.right_panel_show_again = true
+				elseif not fullscreen and not s.right_panel.visible and s.right_panel_show_again then
+					s.right_panel:toggle()
+					s.right_panel_show_again = false
 				end
 			end
 		end

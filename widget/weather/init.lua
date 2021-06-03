@@ -17,14 +17,6 @@ local secrets = {
 	update_interval = config.widget.weather.update_interval
 }
 
-local weather_header = wibox.widget {
-	text   = 'Weather Forecast',
-	font   = 'Inter Bold 14',
-	align  = 'left',
-	valign = 'center',
-	widget = wibox.widget.textbox
-}
-
 local weather_icon_widget = wibox.widget {
 	{
 		id = 'icon',
@@ -172,58 +164,53 @@ local weather_forecast_tooltip = awful.tooltip {
 local weather_report =  wibox.widget {
 	{
 		{
-			layout = wibox.layout.fixed.vertical,
+			layout = wibox.layout.fixed.horizontal,
 			spacing = dpi(10),
-			weather_header,
 			{
-				layout = wibox.layout.fixed.horizontal,
-				spacing = dpi(10),
+				layout = wibox.layout.align.vertical,
+				expand = 'none',
+				nil,
+				weather_icon_widget,
+				nil
+			},
+			{
+				layout = wibox.layout.align.vertical,
+				expand = 'none',
+				nil,
 				{
-					layout = wibox.layout.align.vertical,
-					expand = 'none',
-					nil,
-					weather_icon_widget,
-					nil
-				},
-				{
-					layout = wibox.layout.align.vertical,
-					expand = 'none',
-					nil,
+					layout = wibox.layout.fixed.vertical,
+					weather_location,
+					weather_desc_temp,
 					{
-						layout = wibox.layout.fixed.vertical,
-						weather_location,
-						weather_desc_temp,
+						layout = wibox.layout.fixed.horizontal,
+						spacing = dpi(7),
 						{
 							layout = wibox.layout.fixed.horizontal,
-							spacing = dpi(7),
-							{
-								layout = wibox.layout.fixed.horizontal,
-								spacing = dpi(3),
-								sunrise_icon_widget,
-								weather_sunrise
-							},
-							{
-								layout = wibox.layout.fixed.horizontal,
-								spacing = dpi(3),
-								sunset_icon_widget,
-								weather_sunset
-							},
-							{
-								layout = wibox.layout.fixed.horizontal,
-								spacing = dpi(3),
-								refresh_widget,
-								weather_data_time
-							}
+							spacing = dpi(3),
+							sunrise_icon_widget,
+							weather_sunrise
+						},
+						{
+							layout = wibox.layout.fixed.horizontal,
+							spacing = dpi(3),
+							sunset_icon_widget,
+							weather_sunset
+						},
+						{
+							layout = wibox.layout.fixed.horizontal,
+							spacing = dpi(3),
+							refresh_widget,
+							weather_data_time
 						}
-					},
-					nil				
-				}
+					}
+				},
+				nil				
 			}
 		},
 		margins = dpi(10),
 		widget = wibox.container.margin
 	},
-	forced_height = dpi(110),
+	forced_height = dpi(92),
 	bg = beautiful.groups_bg,
 	shape = function(cr, width, height)
 		gears.shape.partially_rounded_rect(cr, width, height, true, true, true, true, beautiful.groups_radius) 
@@ -237,7 +224,6 @@ local get_weather_symbol = function()
 		['metric'] = '°C',
 		['imperial'] = '°F'
 	}
-
 	return symbol_tbl[secrets.units]
 end
 
@@ -248,8 +234,10 @@ local create_weather_script = function(mode)
 		KEY="]] .. secrets.key .. [["
 		CITY="]] .. secrets.city_id .. [["
 		UNITS="]] .. secrets.units .. [["
+
 		weather=$(curl -sf "http://api.openweathermap.org/data/2.5/]] .. mode ..
 			[[?APPID="${KEY}"&id="${CITY}"&units="${UNITS}"")
+
 		if [ ! -z "$weather" ]; then
 			printf "${weather}"
 		else
@@ -296,8 +284,7 @@ awesome.connect_signal(
 
 awesome.connect_signal(
 	'widget::weather_fetch',
-	function() 
-
+	function()
 		awful.spawn.easy_async_with_shell(
 			create_weather_script('weather'),
 			function(stdout)
@@ -317,6 +304,7 @@ awesome.connect_signal(
 
 					-- Process weather data
 					local location = weather_data.name
+					if(location == "Turan") then location = "Da Nang" end
 					local country = weather_data.sys.country
 					local sunrise = os.date('%H:%M', weather_data.sys.sunrise)
 					local sunset = os.date('%H:%M', weather_data.sys.sunset)
@@ -332,7 +320,7 @@ awesome.connect_signal(
 					local weather_description = weather .. ', ' .. temperature .. get_weather_symbol()
 
 					-- Contantenate city and country
-					local weather_location = 'Da Nang' .. ', ' .. country
+					local weather_location = location .. ', ' .. country
 
 					awesome.emit_signal(
 						'widget::weather_update', 
@@ -344,14 +332,13 @@ awesome.connect_signal(
 						refresh
 					)
 				end
-				collectgarbage('collect')
 			end
 		)
 	end
 )
 
 local update_widget_timer = gears.timer {
-	timeout = secrets.update_interval ,
+	timeout = secrets.update_interval,
 	autostart = true,
 	call_now  = true,
 	single_shot = false,
@@ -364,13 +351,8 @@ local update_widget_timer = gears.timer {
 awesome.connect_signal(
 	'system::network_connected',
 	function() 
-		gears.timer.start_new(
-			5,
-			function() 
-				awesome.emit_signal('widget::weather_fetch')
-				awesome.emit_signal('widget::forecast_fetch')
-			end
-		)
+		awesome.emit_signal('widget::weather_fetch')
+		awesome.emit_signal('widget::forecast_fetch')
 	end
 )
 
@@ -411,7 +393,6 @@ awesome.connect_signal(
 		weather_sunrise:set_markup(sunrise)
 		weather_sunset:set_markup(sunset)
 		weather_data_time:set_markup(data_receive)
-
 	end
 )
 

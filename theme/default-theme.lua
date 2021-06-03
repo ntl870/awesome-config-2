@@ -6,7 +6,7 @@ local dpi = beautiful.xresources.apply_dpi
 local gtk_variable = beautiful.gtk.get_theme_variables
 
 local theme_dir = filesystem.get_configuration_dir() .. '/theme'
-local titlebar_theme = 'lines'
+local titlebar_theme = 'stoplight'
 local titlebar_icon_path = theme_dir .. '/icons/titlebar/' .. titlebar_theme .. '/'
 local tip = titlebar_icon_path
 
@@ -41,7 +41,7 @@ local awesome_overrides = function(theme)
 	theme.bg_urgent = '#3F3F3F'
 
 	-- System tray
-	theme.bg_systray = '#00000000'
+	theme.bg_systray = theme.background
 	theme.systray_icon_spacing = dpi(16)
 
 	-- Titlebar
@@ -139,7 +139,7 @@ local awesome_overrides = function(theme)
 	theme.useless_gap = dpi(4)
 	theme.client_shape_rectangle = gears.shape.rectangle
 	theme.client_shape_rounded = function(cr, width, height)
-		gears.shape.rounded_rect(cr, width, height, dpi(9))
+		gears.shape.rounded_rect(cr, width, height, dpi(6))
 	end
 
 	-- Menu
