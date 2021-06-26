@@ -413,7 +413,7 @@ awful.key({altkey, 'Shift'}, 'Up', function() awful.client.incwfact(-0.05) end,
 		{modkey}, 
 		't',
 		function()
-			awful.util.spawn_with_shell("konsole")
+			awful.util.spawn_with_shell("alacritty")
 		end,
 		{description = 'open default terminal', group = 'launcher'}
 	),

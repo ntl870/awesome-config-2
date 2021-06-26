@@ -91,7 +91,7 @@ return {
 			-- Default password if there's no PAM integration
 			fallback_password = 'okita123',
 			-- Capture intruder using webcam
-			capture_intruder = true,
+			capture_intruder = false,
 			-- Intruder image save location (Will create directory if it doesn't exist)
 			face_capture_dir = '$(xdg-user-dir PICTURES)/Intruders/',
 			-- Background directory - Defaults to 'awesome/config/theme/wallpapers/' if null
